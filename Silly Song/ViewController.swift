@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         "<FULL_NAME>, <FULL_NAME>, Bo B<SHORT_NAME>",
         "Banana Fana Fo F<SHORT_NAME>",
         "Me My Mo M<SHORT_NAME>",
-        "<FULL_NAME>", "<FULL_NAME>, <FULL_NAME>, Bo B<SHORT_NAME>",
+        "<FULL_NAME>", "","<FULL_NAME>, <FULL_NAME>, Bo B<SHORT_NAME>",
         "Banana Fana Fo F<SHORT_NAME>",
         "Me My Mo M<SHORT_NAME>",
         "<FULL_NAME>"].joined(separator: "\n")
@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         
         let audioName = "audio"
         
-        if let path = Bundle.main.path(forResource: audioName, ofType: "wav"){
+        if let path = Bundle.main.path(forResource: audioName, ofType: "mp3"){
             let url = URL(fileURLWithPath: path)
             audioPlayer = AudioPlayer(url: url, rate: 1.0)
         }
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
     @IBAction func rateSlider(_ sender: Any) {
         let value = rateSliderOutlet.value
         self.rate = value
-        speechSynthesizer.rate = self.rate * 2.0
+        speechSynthesizer.rate = self.rate
         audioPlayer.player.rate = self.rate * 4.0
         audioPlayer.stop()
         speechSynthesizer.stop()

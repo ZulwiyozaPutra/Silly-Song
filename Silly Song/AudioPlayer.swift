@@ -20,12 +20,12 @@ class AudioPlayer {
     }
     
     func play(){
-        player.currentTime = 0
+        player.currentTime = 1
         player.play()
     }
     
     func stop(){
         player.stop()
-        player.currentTime = 0
+        player.currentTime = 1
     }
 }

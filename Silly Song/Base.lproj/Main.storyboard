@@ -22,16 +22,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="moZ-GL-bZt">
-                                <rect key="frame" x="16" y="52" width="343" height="454"/>
+                                <rect key="frame" x="32" y="52" width="311" height="583"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Silly Song" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7z-h0-gLA">
-                                        <rect key="frame" x="68.5" y="0.0" width="206.5" height="57.5"/>
+                                        <rect key="frame" x="52.5" y="0.0" width="206.5" height="57.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter your name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bhC-WN-btS">
-                                        <rect key="frame" x="0.0" y="89.5" width="343" height="30.5"/>
+                                        <rect key="frame" x="0.0" y="89.5" width="311" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="HeX-NM-50u"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
@@ -39,34 +42,43 @@
                                             <action selector="resetLyric:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="CGE-uB-YuU"/>
                                         </connections>
                                     </textField>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="92E-qT-2av">
-                                        <rect key="frame" x="0.0" y="152" width="343" height="302"/>
-                                        <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="S2C-fS-Loz">
+                                        <rect key="frame" x="-2" y="153.5" width="315" height="39.5"/>
+                                        <connections>
+                                            <action selector="rateSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="Aef-ow-gbe"/>
+                                        </connections>
+                                    </slider>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter your name to play the Silly Song" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="92E-qT-2av">
+                                        <rect key="frame" x="0.0" y="224" width="311" height="359"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="92E-qT-2av" secondAttribute="bottom" id="0YH-9P-Tww"/>
+                                    <constraint firstAttribute="trailing" secondItem="S2C-fS-Loz" secondAttribute="trailing" id="dKn-1C-lS1"/>
                                     <constraint firstAttribute="trailing" secondItem="92E-qT-2av" secondAttribute="trailing" id="iLf-sy-gWa"/>
                                     <constraint firstAttribute="trailing" secondItem="bhC-WN-btS" secondAttribute="trailing" id="km6-wr-J8O"/>
                                     <constraint firstItem="92E-qT-2av" firstAttribute="leading" secondItem="moZ-GL-bZt" secondAttribute="leading" id="nHa-ja-hxx"/>
                                     <constraint firstItem="bhC-WN-btS" firstAttribute="leading" secondItem="moZ-GL-bZt" secondAttribute="leading" id="uVA-RX-7bI"/>
+                                    <constraint firstItem="S2C-fS-Loz" firstAttribute="leading" secondItem="moZ-GL-bZt" secondAttribute="leading" id="xI8-sF-w8r"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="moZ-GL-bZt" secondAttribute="trailing" constant="16" id="CJ7-uW-Fmz"/>
-                            <constraint firstItem="moZ-GL-bZt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="WGn-X7-ycw"/>
+                            <constraint firstAttribute="trailing" secondItem="moZ-GL-bZt" secondAttribute="trailing" constant="32" id="CJ7-uW-Fmz"/>
+                            <constraint firstItem="moZ-GL-bZt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="32" id="WGn-X7-ycw"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="moZ-GL-bZt" secondAttribute="bottom" constant="32" id="dCH-z7-hRH"/>
                             <constraint firstItem="moZ-GL-bZt" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="32" id="eaW-Yb-bKi"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="moZ-GL-bZt" secondAttribute="bottom" constant="161" id="qKv-su-70f"/>
                         </constraints>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="lyricTextView" destination="92E-qT-2av" id="hp2-WR-Ga8"/>
                         <outlet property="nameTextField" destination="bhC-WN-btS" id="UXW-ao-SA9"/>
+                        <outlet property="rateSliderOutlet" destination="S2C-fS-Loz" id="QuV-e6-Pq8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

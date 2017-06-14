@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -14,26 +15,75 @@ class ViewController: UIViewController {
         "<FULL_NAME>, <FULL_NAME>, Bo B<SHORT_NAME>",
         "Banana Fana Fo F<SHORT_NAME>",
         "Me My Mo M<SHORT_NAME>",
+        "<FULL_NAME>", "<FULL_NAME>, <FULL_NAME>, Bo B<SHORT_NAME>",
+        "Banana Fana Fo F<SHORT_NAME>",
+        "Me My Mo M<SHORT_NAME>",
         "<FULL_NAME>"].joined(separator: "\n")
-
-    @IBOutlet weak var nameTextField: UITextField!
     
-    @IBOutlet weak var lyricTextView: UITextView!
+    var songManager: SongManager!
     
-    @IBAction func resetLyric(_ sender: Any) {
-        nameTextField.text = ""
-        lyricTextView.text = ""
-    }
+    var speechSynthesizer: SpeechSynthesizer!
     
-    @IBAction func displayLyric(_ sender: Any) {
-        lyricTextView.text = lyricsForName(lyricsTemplate: bananaFanaTemplate, fullName: nameTextField.text!)
-        
-    }
+    var audioPlayer: AudioPlayer!
+    
+    var rate: Float!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         nameTextField.delegate = self
+        songManager = SongManager(template: bananaFanaTemplate)
+        speechSynthesizer = SpeechSynthesizer(rate: self.rateSliderOutlet.value, pitchMultiplier: 0.25, volume: 1.0)
+        
+        let audioName = "audio"
+        
+        if let path = Bundle.main.path(forResource: audioName, ofType: "wav"){
+            let url = URL(fileURLWithPath: path)
+            audioPlayer = AudioPlayer(url: url, rate: 1.0)
+        }
+        
     }
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    
+    @IBOutlet weak var lyricTextView: UITextView!
+    
+    @IBOutlet weak var rateSliderOutlet: UISlider!
+    
+    @IBAction func rateSlider(_ sender: Any) {
+        let value = rateSliderOutlet.value
+        self.rate = value
+        speechSynthesizer.rate = self.rate * 2.0
+        audioPlayer.player.rate = self.rate * 4.0
+        audioPlayer.stop()
+        speechSynthesizer.stop()
+    }
+    
+    
+    @IBAction func resetLyric(_ sender: Any) {
+        lyricTextView.text = "Enter your name to play the Silly Song"
+        audioPlayer.stop()
+        speechSynthesizer.stop()
+    }
+    
+    @IBAction func displayLyric(_ sender: Any) {
+        if !((nameTextField.text?.isEmpty)!) {
+            songManager.customizeTemplate(withName: nameTextField.text!)
+            lyricTextView.text = songManager.lyrics
+            audioPlayer.play()
+            speechSynthesizer.speak(songManager.lyrics)
+        } else {
+            alertController(title: "Name is Missing", message: "Please fill your name")
+        }
+        
+    }
+    
+    private func alertController(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated  : true, completion: nil)
+    }
+    
 
 }
 
@@ -42,32 +92,4 @@ extension ViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return false
     }
-}
-
-extension ViewController {
-    func shortNameFromName(fullName: String) -> String{
-        
-        let lowerCaseName = fullName.lowercased()
-        let vowelSet = CharacterSet(charactersIn: "aeiou")
-        if let vowelSet = lowerCaseName.rangeOfCharacter(from: vowelSet, options: .caseInsensitive) {
-            print (lowerCaseName)
-            return lowerCaseName.substring(to: vowelSet.lowerBound)
-        }
-        return lowerCaseName
-    }
-
-    
-    
-    func lyricsForName(lyricsTemplate: String, fullName: String) -> String {
-        
-        
-        let shortName = shortNameFromName(fullName: fullName)
-        
-        let lyrics = lyricsTemplate
-            .replacingOccurrences(of: "<FULL_NAME>", with: fullName)
-            .replacingOccurrences(of: "<SHORT_NAME>", with: shortName)
-        
-        return lyrics
-    }
-    
 }

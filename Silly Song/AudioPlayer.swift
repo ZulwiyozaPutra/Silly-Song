@@ -9,21 +9,23 @@
 import Foundation
 import AVFoundation
 
-class AudioPlayer: AVAudioPlayer {
-    var audioPlayer: AVAudioPlayer!
+class AudioPlayer {
+    var player: AVAudioPlayer!
     
-    init(_ url: URL) {
-        super.init()
-        audioPlayer = try? AVAudioPlayer(contentsOf: url)
-        audioPlayer.prepareToPlay()
+     init(url: URL, rate: Float) {
+        player = try? AVAudioPlayer(contentsOf: url)
+        player.rate = rate
+        player.enableRate = true
+        player.prepareToPlay()
     }
     
-    func playAudio(){
-        audioPlayer.currentTime = 0
-        audioPlayer.play()
+    func play(){
+        player.currentTime = 0
+        player.play()
     }
     
-    func stopAudio(){
-        audioPlayer.stop()
+    func stop(){
+        player.stop()
+        player.currentTime = 0
     }
 }

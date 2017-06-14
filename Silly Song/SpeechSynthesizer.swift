@@ -28,4 +28,9 @@ class SpeechSynthesizer: AVSpeechSynthesizer {
         
         self.speak(speechUtterance)
     }
+    
+    func stop() {
+        let speechBoundary = AVSpeechBoundary.word
+        self.stopSpeaking(at: speechBoundary)
+    }
 }

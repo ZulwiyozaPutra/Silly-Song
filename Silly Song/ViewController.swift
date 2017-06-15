@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameTextField.delegate = self
+        nameField.delegate = self
         songManager = SongManager(template: bananaFanaTemplate)
         speechSynthesizer = SpeechSynthesizer(rate: self.rateSliderOutlet.value, pitchMultiplier: 0.25, volume: 1.0)
         
@@ -43,32 +43,32 @@ class ViewController: UIViewController {
         
     }
     
-    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var nameField: UITextField!
     
-    @IBOutlet weak var lyricTextView: UITextView!
+    @IBOutlet weak var lyricsView: UITextView!
     
     @IBOutlet weak var rateSliderOutlet: UISlider!
     
     @IBAction func rateSlider(_ sender: Any) {
         let value = rateSliderOutlet.value
         self.rate = value
-        speechSynthesizer.rate = self.rate
-        audioPlayer.player.rate = self.rate * 4.0
+        speechSynthesizer.rate = self.rate * 2.0
+        audioPlayer.player.rate = self.rate * 2.0
         audioPlayer.stop()
         speechSynthesizer.stop()
     }
     
     
     @IBAction func resetLyric(_ sender: Any) {
-        lyricTextView.text = "Enter your name to play the Silly Song"
+        lyricsView.text = "Enter your name to play the Silly Song"
         audioPlayer.stop()
         speechSynthesizer.stop()
     }
     
     @IBAction func displayLyric(_ sender: Any) {
-        if !((nameTextField.text?.isEmpty)!) {
-            songManager.customizeTemplate(withName: nameTextField.text!)
-            lyricTextView.text = songManager.lyrics
+        if !((nameField.text?.isEmpty)!) {
+            songManager.customizeTemplate(withName: nameField.text!)
+            lyricsView.text = songManager.lyrics
             audioPlayer.play()
             speechSynthesizer.speak(songManager.lyrics)
         } else {

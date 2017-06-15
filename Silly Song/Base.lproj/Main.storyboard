@@ -76,8 +76,8 @@
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
-                        <outlet property="lyricTextView" destination="92E-qT-2av" id="hp2-WR-Ga8"/>
-                        <outlet property="nameTextField" destination="bhC-WN-btS" id="UXW-ao-SA9"/>
+                        <outlet property="lyricsView" destination="92E-qT-2av" id="D67-YM-96F"/>
+                        <outlet property="nameField" destination="bhC-WN-btS" id="AQO-Kf-88M"/>
                         <outlet property="rateSliderOutlet" destination="S2C-fS-Loz" id="QuV-e6-Pq8"/>
                     </connections>
                 </viewController>

@@ -33,27 +33,17 @@ class SongManager {
                 
                 let firstLetter: Character = letters[0]
                 
-                print(firstLetter)
-                
                 let firstLetterString = String(firstLetter)
-                
-                print(firstLetterString)
                 
                 let unicodeScalars = firstLetterString.unicodeScalars
                 
-                print(unicodeScalars)
-                
                 let unicodeScalarsValue = unicodeScalars[unicodeScalars.startIndex].value
                 
-                print(unicodeScalarsValue)
-                
                 if let unicodeScalar = UnicodeScalar(unicodeScalarsValue) {
-                    print(unicodeScalar)
                     
                     if !vowelSet.contains(unicodeScalar){
                         let index = lowercasedName.characters.index(after: lowercasedName.characters.startIndex)
                         lowercasedName = lowercasedName.substring(from: index)
-                        print(lowercasedName)
                     } else{
                         isNameValid = true
                     }

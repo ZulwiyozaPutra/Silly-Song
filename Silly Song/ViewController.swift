@@ -31,8 +31,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         nameField.delegate = self
+        
         songManager = SongManager(template: bananaFanaTemplate)
-        speechSynthesizer = SpeechSynthesizer(rate: self.rateSliderOutlet.value, pitchMultiplier: 0.25, volume: 1.0)
+        speechSynthesizer = SpeechSynthesizer()
+        
+        speechSynthesizer.delegate = self
         
         let audioName = "audio"
         
@@ -52,7 +55,6 @@ class ViewController: UIViewController {
     @IBAction func rateSlider(_ sender: Any) {
         let value = rateSliderOutlet.value
         self.rate = value
-        speechSynthesizer.rate = self.rate * 2.0
         audioPlayer.player.rate = self.rate * 2.0
         audioPlayer.stop()
         speechSynthesizer.stop()
@@ -70,7 +72,7 @@ class ViewController: UIViewController {
             songManager.customizeTemplate(withName: nameField.text!)
             lyricsView.text = songManager.lyrics
             audioPlayer.play()
-            speechSynthesizer.speak(songManager.lyrics)
+            speechSynthesizer.speak(songManager.lyrics, rate: self.rateSliderOutlet.value, pitchMultiplier: 0.25, volume: 1.0)
         } else {
             alertController(title: "Name is Missing", message: "Please fill your name")
         }
@@ -91,5 +93,11 @@ extension ViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
+    }
+}
+
+extension ViewController: AVSpeechSynthesizerDelegate {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        audioPlayer.stop()
     }
 }

@@ -10,21 +10,19 @@ import Foundation
 import AVFoundation
 
 class SpeechSynthesizer: AVSpeechSynthesizer {
-    var rate: Float
-    var pitchMultiplier: Float
-    var volume: Float
     
-    init(rate: Float, pitchMultiplier: Float, volume: Float) {
-        self.rate = rate
-        self.pitchMultiplier = pitchMultiplier
-        self.volume = volume
+    var speechDelegate: AVSpeechSynthesizerDelegate?
+    
+    override init() {
+        super.init()
+        self.speechDelegate = self.delegate
     }
     
-    func speak(_ text: String) {
+    func speak(_ text: String, rate: Float, pitchMultiplier: Float, volume: Float) {
         let speechUtterance = AVSpeechUtterance(string: text)
-        speechUtterance.rate = self.rate
-        speechUtterance.pitchMultiplier = self.pitchMultiplier
-        speechUtterance.volume = self.volume
+        speechUtterance.rate = rate
+        speechUtterance.pitchMultiplier = pitchMultiplier
+        speechUtterance.volume = volume
         
         self.speak(speechUtterance)
     }
